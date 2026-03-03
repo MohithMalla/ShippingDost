@@ -12,26 +12,27 @@ class ShippingServiceTest {
 
     private final ShippingService shippingService = new ShippingService();
 
-    @ParameterizedTest(name = "Dist: {0}km, Tier: {1}, Expected: {2} (Speed: {3})")
+    // Testing different scenarios: Van, Truck, Flight and Gold/Silver tiers
+    @ParameterizedTest(name = "Check {0}km, {1} Tier: Expecting {2} (Speed: {3})")
     @CsvSource({
-        "45,  GOLD,   143.0, standard", // Van (45*3 + 1*8)
-        "150, SILVER, 312.0, standard", // Truck (150*2 + 1*12)
-        "600, GOLD,   608.0, standard", // Air (600*1 + 1*8)
-        "45,  GOLD,   144.2, express",  // Van + Speed (143 + 1*1.2)
-        "200, SILVER, 412.0, standard"  // Truck (200*2 + 1*12)
+        "45,  GOLD,   143.0, standard", // Distance < 100 so Van logic
+        "150, SILVER, 312.0, standard", // Distance > 100 so Truck logic
+        "600, GOLD,   608.0, standard", // Distance > 500 so Flight logic
+        "45,  GOLD,   144.2, express",  // Adding extra charge for speed
+        "200, SILVER, 412.0, standard"  
     })
     void testShippingCalculations(double distance, Tier tier, double expected, String speed) {
-        // Arrange
+        // Set up the data
         Customer customer = new Customer();
         customer.setTier(tier);
         
         Product product = new Product();
-        product.setWeight(1.0); // Keep weight constant at 1kg for simplicity
+        product.setWeight(1.0); // Simple 1kg for easy checking
 
-        // Act
+        // Run the calculation
         double result = shippingService.calculateFinalCharge(customer, product, distance, speed);
 
-        // Assert
-        assertEquals(expected, result, 0.01, "Failed for distance: " + distance);
+        // Result should match our expected value
+        assertEquals(expected, result, 0.01, "Calculation is wrong for " + distance + "km");
     }
 }

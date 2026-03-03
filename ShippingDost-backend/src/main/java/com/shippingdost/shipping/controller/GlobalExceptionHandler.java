@@ -8,10 +8,7 @@ import java.time.LocalDateTime;
 import java.util.HashMap;
 import java.util.Map;
 
-/**
- * Enterprise-grade Global Exception Handler.
- * This acts as the "Safety Net" for all API errors.
- */
+// If any error comes, it will come here first
 @ControllerAdvice
 public class GlobalExceptionHandler {
 
@@ -20,8 +17,8 @@ public class GlobalExceptionHandler {
         Map<String, Object> body = new HashMap<>();
         body.put("timestamp", LocalDateTime.now());
         body.put("status", HttpStatus.NOT_FOUND.value());
-        body.put("error", "B2B_RESOURCE_ERROR");
-        body.put("message", ex.getMessage()); // e.g., "Seller not found"
+        body.put("error", "DATA_NOT_FOUND");
+        body.put("message", ex.getMessage()); 
 
         return new ResponseEntity<>(body, HttpStatus.NOT_FOUND);
     }
@@ -31,8 +28,8 @@ public class GlobalExceptionHandler {
         Map<String, Object> body = new HashMap<>();
         body.put("timestamp", LocalDateTime.now());
         body.put("status", HttpStatus.INTERNAL_SERVER_ERROR.value());
-        body.put("error", "SYSTEM_CRITICAL_ERROR");
-        body.put("message", "An unexpected logistics error occurred.");
+        body.put("error", "SERVER_ISSUE");
+        body.put("message", "Something went wrong in the logic side.");
 
         return new ResponseEntity<>(body, HttpStatus.INTERNAL_SERVER_ERROR);
     }

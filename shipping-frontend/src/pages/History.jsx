@@ -7,7 +7,7 @@ export default function History() {
 
   useEffect(() => {
     // Fetches your B2B history logs
-    axios.get('http://localhost:8080/api/v1/shipping-charge/history')
+    axios.get('https://shippingdost-4.onrender.com/api/v1/shipping-charge/history')
       .then(res => setLogs(res.data.reverse())) // Show newest first
       .catch(err => console.error("History fetch error:", err));
   }, []);

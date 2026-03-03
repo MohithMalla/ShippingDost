@@ -6,7 +6,6 @@ import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.web.cors.CorsConfiguration;
-
 import java.util.List;
 
 @Configuration
@@ -16,29 +15,29 @@ public class SecurityConfig {
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
         http
-            // 1. Disable CSRF for B2B API usage
+            // No need CSRF for our API bro
             .csrf(csrf -> csrf.disable()) 
             
-            // 2. Configure CORS for your React App
+            // Connecting React and backend here
             .cors(cors -> cors.configurationSource(request -> {
                 CorsConfiguration config = new CorsConfiguration();
                 config.setAllowedOrigins(List.of(
                         "http://localhost:5173", 
-                        "https://shipping-dost.vercel.app" // Your Vercel URL
+                        "https://shipping-dost.vercel.app" 
                 ));
                 config.setAllowedMethods(List.of("GET", "POST", "PUT", "DELETE"));
                 config.setAllowedHeaders(List.of("*"));
                 return config;
             }))
             
-            // 3. Set Permissions
+            // Opening the paths for testing and H2
             .authorizeHttpRequests(auth -> auth
-                .requestMatchers("/api/v1/**").permitAll() // Open for Estimator usage
-                .requestMatchers("/h2-console/**").permitAll() // Allow H2 DB access
+                .requestMatchers("/api/v1/**").permitAll() 
+                .requestMatchers("/h2-console/**").permitAll() 
                 .anyRequest().authenticated()
             )
             
-            // 4. Enable Frame Options for H2 Console
+            // H2 console needs this otherwise it won't open in browser
             .headers(headers -> headers.frameOptions(frame -> frame.disable()));
 
         return http.build();

@@ -8,7 +8,7 @@ export default function Dashboard() {
   const [drillDownData, setDrillDownData] = useState([]);
 
   useEffect(() => {
-    axios.get('http://localhost:8080/api/v1/shipping-charge/history')
+    axios.get('https://shippingdost-4.onrender.com/api/v1/shipping-charge/history')
       .then(res => setLogs(res.data));
   }, []);
 

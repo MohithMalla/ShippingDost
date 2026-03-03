@@ -4,6 +4,7 @@ import jakarta.persistence.*;
 import lombok.*;
 import java.time.LocalDateTime;
 
+// This table saves all our previous calculations
 @Entity
 @Data
 @Builder
@@ -13,17 +14,18 @@ public class AuditLog {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+    
     private Long customerId;
     private Long sellerId;
     private Long warehouseId;
-    private String warehouseName; // Added for stats
+    private String warehouseName; 
     private double finalCharge;
-    private double distance;      // Added for route analysis
-    private String transportMode; // AEROPLANE, TRUCK, or MINI_VAN
+    private double distance; 
+    private String transportMode; // Air, Truck, or Van
     private LocalDateTime timestamp;
 
     @PrePersist
     protected void onCreate() {
-        this.timestamp = LocalDateTime.now();
+        this.timestamp = LocalDateTime.now(); // Automatically set time when saving
     }
 }

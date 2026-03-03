@@ -9,7 +9,7 @@ import org.springframework.http.MediaType;
 import org.springframework.security.test.context.support.WithMockUser;
 import org.springframework.test.web.servlet.MockMvc;
 
-// IMPORTANT: Static imports for CSRF bypass
+// Static imports for checking API
 import static org.springframework.security.test.web.servlet.request.SecurityMockMvcRequestPostProcessors.csrf;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
@@ -24,23 +24,25 @@ class ShippingControllerTest {
     private MockMvc mockMvc;
 
     @Test
-    @WithMockUser // Bypasses 401 Unauthorized
-    @DisplayName("API: Should return 200 OK for valid calculation request")
+    @WithMockUser // This will skip the login part for testing
+    @DisplayName("Check if calculation API is working")
     void testCalculateEndpoint() throws Exception {
+        // Sending dummy data to see if we get result
         String jsonRequest = "{\"customerId\":1, \"sellerId\":1, \"productId\":1, \"deliverySpeed\":\"standard\"}";
 
         mockMvc.perform(post("/api/v1/shipping-charge/calculate")
-                .with(csrf()) // <--- FIXES 403 FORBIDDEN ERROR
+                .with(csrf()) // Adding CSRF because otherwise it will give 403 error
                 .contentType(MediaType.APPLICATION_JSON)
                 .content(jsonRequest))
                 .andExpect(status().isOk())
-                .andExpect(jsonPath("$.transportMode").exists());
+                .andExpect(jsonPath("$.transportMode").exists()); // Result should have transport mode
     }
 
     @Test
     @WithMockUser
-    @DisplayName("API: Should return 200 OK for master data fetch")
+    @DisplayName("Check if sellers list is coming")
     void testGetSellers() throws Exception {
+        // Just checking if sellers API gives 200 OK
         mockMvc.perform(get("/api/v1/sellers"))
                 .andExpect(status().isOk());
     }

@@ -3,6 +3,7 @@ package com.shippingdost.shipping.utils;
 import com.shippingdost.shipping.model.Location;
 
 public class DistanceEstimator {
+    // Haversine formula to get distance between two lat/lng points
     public static double calculateDistance(Location loc1, Location loc2) {
         double dLat = Math.toRadians(loc2.getLat() - loc1.getLat());
         double dLng = Math.toRadians(loc2.getLng() - loc1.getLng());
@@ -12,6 +13,6 @@ public class DistanceEstimator {
                    Math.sin(dLng / 2) * Math.sin(dLng / 2);
                    
         double c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));
-        return 6371 * c; // Result in Kilometers
+        return 6371 * c; // Final answer in KM
     }
 }

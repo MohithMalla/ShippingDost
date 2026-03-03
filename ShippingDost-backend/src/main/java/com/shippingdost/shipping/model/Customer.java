@@ -3,11 +3,9 @@ package com.shippingdost.shipping.model;
 import jakarta.persistence.*;
 import lombok.*;
 
-/**
- * Enterprise Model representing a B2B Kirana Store.
- */
+// This is for our Kirana Store details
 @Entity
-@Data // This provides getters, setters, and toString automatically
+@Data 
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
@@ -20,16 +18,13 @@ public class Customer {
     private String phone;
     
     @Embedded
-    private Location location;
+    private Location location; // Lat and Lng stored here
     
     @Enumerated(EnumType.STRING)
-    private Tier tier; // Enum: GOLD, SILVER, BRONZE
+    private Tier tier; // GOLD, SILVER, or BRONZE
 
-    /**
-     * Required for ShippingService.java null-safe check.
-     * Returns the name of the tier as a String.
-     */
+    // Helper to get tier name easily in logic
     public String getTier() {
-        return (tier != null) ? tier.name() : null;
+        return (tier != null) ? tier.name() : "BRONZE";
     }
 }

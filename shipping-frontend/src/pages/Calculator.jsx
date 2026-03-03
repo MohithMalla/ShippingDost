@@ -32,9 +32,9 @@ export default function Calculator() {
     const fetchData = async () => {
       try {
         const [s, c, p] = await Promise.all([
-          axios.get('http://localhost:8080/api/v1/sellers'),
-          axios.get('http://localhost:8080/api/v1/customers'),
-          axios.get('http://localhost:8080/api/v1/products')
+          axios.get('https://shippingdost-4.onrender.com/api/v1/sellers'),
+          axios.get('https://shippingdost-4.onrender.com/api/v1/customers'),
+          axios.get('https://shippingdost-4.onrender.com/api/v1/products')
         ]);
         setOptions({ sellers: s.data, customers: c.data, products: p.data });
       } catch (err) { console.error("Dropdown load failed", err); }
@@ -47,7 +47,7 @@ export default function Calculator() {
     if (!form.sellerId || !form.customerId || !form.productId) return alert("Select all fields.");
     setLoading(true);
     try {
-      const res = await axios.post('http://localhost:8080/api/v1/shipping-charge/calculate', form);
+      const res = await axios.post('https://shippingdost-4.onrender.com/api/v1/shipping-charge/calculate', form);
       setResult(res.data);
     } catch (err) { alert(err.response?.data?.message || "Logic Error."); }
     finally { setLoading(false); }

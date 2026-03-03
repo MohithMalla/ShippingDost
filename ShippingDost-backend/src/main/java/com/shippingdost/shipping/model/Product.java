@@ -10,8 +10,8 @@ public class Product {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     private String name;
-    private double weight;
+    private double weight; // Weight is very important for charge
 
     @Enumerated(EnumType.STRING)
-    private Category category; // Helps determine transport constraints
+    private Category category; // Regular, Perishable, etc.
 }
