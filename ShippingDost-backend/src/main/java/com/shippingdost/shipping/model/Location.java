@@ -1,13 +1,15 @@
-package com.jumbotail.shipping.model;
+package com.shippingdost.shipping.model; // Ensure this matches the folder path!
 
 import jakarta.persistence.Embeddable;
-import lombok.*;
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
 
-@Embeddable
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
+@Embeddable
 public class Location {
-    private double lat;
-    private double lng;
+    private double latitude;
+    private double longitude;
 }
