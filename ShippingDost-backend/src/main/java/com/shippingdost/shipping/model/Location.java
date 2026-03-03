@@ -1,4 +1,4 @@
-package com.shippingdost.shipping.model; // Ensure this matches the folder path!
+package com.shippingdost.shipping.model;
 
 import jakarta.persistence.Embeddable;
 import lombok.AllArgsConstructor;
@@ -10,6 +10,7 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @Embeddable
 public class Location {
-    private double latitude;
-    private double longitude;
+    // We use 'lat' and 'lng' to match your DistanceEstimator logic
+    private double lat;
+    private double lng;
 }
