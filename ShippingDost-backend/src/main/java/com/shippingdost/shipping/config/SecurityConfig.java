@@ -22,7 +22,10 @@ public class SecurityConfig {
             // 2. Configure CORS for your React App
             .cors(cors -> cors.configurationSource(request -> {
                 CorsConfiguration config = new CorsConfiguration();
-                config.setAllowedOrigins(List.of("http://localhost:5173"));
+                config.setAllowedOrigins(List.of(
+                        "http://localhost:5173", 
+                        "https://shipping-dost.vercel.app" // Your Vercel URL
+                ));
                 config.setAllowedMethods(List.of("GET", "POST", "PUT", "DELETE"));
                 config.setAllowedHeaders(List.of("*"));
                 return config;
