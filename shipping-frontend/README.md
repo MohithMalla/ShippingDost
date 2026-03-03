@@ -10,7 +10,6 @@
 
 **ShippingDost** is a high-performance B2B logistics platform built to optimize shipping costs between **Sellers**, **Warehouses**, and **Kirana Stores** using DSA-driven logic and real-time mapping.
 
-[Live Demo](#-live-links) • [Core Logic](#-core-logic-how-it-works) • [Local Setup](#-how-to-run-locally)
 
 </div>
 
