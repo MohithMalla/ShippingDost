@@ -2,7 +2,8 @@
 FROM maven:3.8.4-eclipse-temurin-17 AS build
 WORKDIR /app
 COPY . .
-RUN mvn clean package -DskipTests
+# We add -Dmaven.test.skip=true to skip both running AND compiling tests
+RUN mvn clean package -Dmaven.test.skip=true
 
 # Stage 2: Runtime
 FROM eclipse-temurin:17-jdk-alpine
