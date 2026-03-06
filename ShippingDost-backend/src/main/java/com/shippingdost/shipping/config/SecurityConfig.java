@@ -23,7 +23,7 @@ public class SecurityConfig {
                 CorsConfiguration config = new CorsConfiguration();
                 config.setAllowedOrigins(List.of(
                         "http://localhost:5173", 
-                        "https://shipping-dost.vercel.app" 
+                        "https://shipping-dost.netlify.app/" 
                 ));
                 config.setAllowedMethods(List.of("GET", "POST", "PUT", "DELETE"));
                 config.setAllowedHeaders(List.of("*"));
